@@ -28,6 +28,10 @@ public class Main {
                     transfer();
                     break;
                 case 4:
+                    System.out.println("ENTER ACCOUNT NUMBER");
+                    int accountNumber= scanner.nextInt();
+                    BankCrudOperations bco=new BankCrudOperations();
+                    bco.accountStatement(accountNumber);
                     break;
                 case 5:
                     break;
@@ -76,7 +80,7 @@ public class Main {
         BankCrudOperations b1=new BankCrudOperations();
         int count=b1.deposit(a1);
         if(count>0){
-            System.out.println(a1.getAccountBalance()+" DEPOSITED INT YOUR ACCOUNT");
+            System.out.println(amount+" DEPOSITED INT YOUR ACCOUNT");
         }else {
             System.out.println("ERROR");
         }
@@ -88,9 +92,22 @@ public class Main {
         int toAccount= scanner.nextInt();
         System.out.println("ENTER NAME");
         String name= scanner.next();
-        System.out.println("ENTER BALANCE");
-        double balance= scanner.nextDouble();
-       // BankOperation.transfer(fromAccount,toAccount,name,balance);
+        System.out.println("ENTER AMOUNT");
+        double amount= scanner.nextDouble();
+
+        Account a1=new Account();
+        a1.setFromAccount(fromAccount);
+        a1.setToAccount(toAccount);
+        a1.setAccountHolderName(name);
+        a1.setDepositAmount(amount);
+
+        BankCrudOperations bco=new BankCrudOperations();
+        int count=bco.transfer(a1);
+        if(count>0){
+            System.out.println(amount+" TRANSFER SUCCESSFUL");
+        }else{
+            System.out.println("SOMETHING WENT WRONG !");
+        }
     }
     public static void main(String[] args) throws SQLException {
         operations();
