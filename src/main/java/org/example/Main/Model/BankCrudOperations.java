@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 //SIMPLE EXAMPLE TO UNDERSTAND DTO-DAO DESIGN PATTERN
-
+//SIMPLE EXAMPLE TO UNDERSTAND DTO-DAO DESIGN PATTERN
 public class BankCrudOperations {
     private static String deposit="INSERT INTO bank(account_number,account_name,deposite,balance) VALUES(?,?,?,?)";
     private static String depositHelper="SELECT balance FROM bank WHERE account_number=? ORDER BY tx_id DESC LIMIT 1";
