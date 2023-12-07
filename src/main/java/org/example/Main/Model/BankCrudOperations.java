@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
 //SIMPLE EXAMPLE TO UNDERSTAND DTO-DAO DESIGN PATTERN
 //SIMPLE EXAMPLE TO UNDERSTAND DTO-DAO DESIGN PATTERN
 public class BankCrudOperations {
@@ -134,27 +136,28 @@ public class BankCrudOperations {
         }
         return -1;
     }
-    public void accountStatement(int accountNumber){
+    public ArrayList<Account> accountStatement(int accountNumber){
         Connection con=GetConnection.GetConnection();
+        ArrayList<Account> accountArrayList=new ArrayList<>();
         try {
             PreparedStatement psmt= con.prepareStatement(accountStatement);
             psmt.setInt(1,accountNumber);
             ResultSet rs=psmt.executeQuery();
 
-            System.out.println("TX-ID || DEPOSIT || WITHDRAW || FROM ACCOUNT || TO ACCOUNT || ACCOUNT BALANCE");
+
             while(rs.next()){
-                System.out.print( rs.getInt(1)+"\t");
-                System.out.print(rs.getDouble(4)+"\t");
-                System.out.print("\t\t");
-                System.out.print(rs.getDouble(5)+"\t");
-                System.out.print("\t\t");
-                System.out.print(rs.getInt(6)+"\t");
-                System.out.print(rs.getInt(7)+"\t");
-                System.out.print(rs.getDouble(8)+"\t");
-                System.out.println();
+               Account a1=new Account();
+               a1.setDepositAmount(rs.getDouble(4));
+               a1.setWithdrawAmount(rs.getDouble(5));
+               a1.setFromAccount(rs.getInt(6));
+               a1.setToAccount(rs.getInt(7));
+               a1.setAccountBalance(rs.getDouble(8));
+
+               accountArrayList.add(a1);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return accountArrayList;
     }
 }

@@ -3,6 +3,7 @@ package org.example.Main;
 import org.example.Main.DTO.Account;
 import org.example.Main.Model.BankCrudOperations;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -28,12 +29,11 @@ public class Main {
                     transfer();
                     break;
                 case 4:
-                    System.out.println("ENTER ACCOUNT NUMBER");
-                    int accountNumber= scanner.nextInt();
-                    BankCrudOperations bco=new BankCrudOperations();
-                    bco.accountStatement(accountNumber);
+                        displayAccountStatement();
                     break;
                 case 5:
+                    System.out.println("THANK FOR VISITING");
+                    status=false;
                     break;
                 default:
                     System.out.println("INVALID INPUT");
@@ -107,6 +107,23 @@ public class Main {
             System.out.println(amount+" TRANSFER SUCCESSFUL");
         }else{
             System.out.println("SOMETHING WENT WRONG !");
+        }
+    }
+    private static void displayAccountStatement(){
+        System.out.println("ENTER ACCOUNT NUMBER");
+        int accountNumber= scanner.nextInt();
+        BankCrudOperations bco=new BankCrudOperations();
+        ArrayList<Account> accountStatement=bco.accountStatement(accountNumber);
+        System.out.println("DEPOSIT || WITHDRAW || FROM ACCOUNT || TO ACCOUNT || ACCOUNT BALANCE");
+        for(Account a1:accountStatement){
+            System.out.print(a1.getDepositAmount()+"\t");
+            System.out.print("\t\t");
+            System.out.print(a1.getWithdrawAmount()+"\t");
+            System.out.print("\t\t");
+            System.out.print(a1.getFromAccount()+"\t");
+            System.out.print(a1.getToAccount()+"\t");
+            System.out.print(a1.getAccountBalance()+"\t");
+            System.out.println();
         }
     }
     public static void main(String[] args) throws SQLException {
