@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+//SIMPLE EXAMPLE TO UNDERSTAND DTO-DAO DESIGN PATTERN
 
 public class BankCrudOperations {
     private static String deposit="INSERT INTO bank(account_number,account_name,deposite,balance) VALUES(?,?,?,?)";
